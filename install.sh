@@ -11,14 +11,6 @@ VAGRANT_VER="1.4.3"
 platform='unkown'
 unamestr=`uname`
 
-vbox_version=`VBoxHeadless --version`
-install_vbox=false
-
-
-if [ "$vbox_version" == "" ]; then
-  install_vbox=true
-fi
-
 if [[ "$unamestr" == "Linux" ]]; then
   platform='linux'
   source /etc/os-release
@@ -69,4 +61,6 @@ elif [[ "$unamestr" == "Darwin" ]]; then
   vagrant_pkg="Vagrant-${VAGRANT_VER}.dmg"
   curl -L ${VAGRANT_BASE_URL}/${vagrant_pkg} > /tmp/${vagrant_pkg}
   hdiutil attach /tmp/${vagrant_pkg}
+  sudo installer -pkg /Volumes/Vagrant/Vagrant.pkg -target /
+  hdiutil detach /Volumes/Vagrant
 fi
