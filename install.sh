@@ -4,6 +4,8 @@ VIRTUALBOX_VER="4.3.6"
 VIRTUALBOX_FULL_VER="4.3_4.3.6-91406"
 VIRTUALBOX_BASE_URL="http://download.virtualbox.org/virtualbox/4.3.6"
 
+VirtualBox-4.3.6-91406-OSX.dmg
+
 platform='unkown'
 unamestr=`uname`
 
@@ -39,11 +41,15 @@ if [[ "$unamestr" == "Linux" ]]; then
 
     if [ install_vbox ];then
       virtualbox_pkg="virtualbox-${VIRTUALBOX_FULL_VER}~Ubuntu~${version_name}_amd64.deb"
-      curl -L ${VIRTUALBOX_BASE_URL}/${virtualbox_pkg} /tmp/${virtualbox_pkg}
+      curl -L ${VIRTUALBOX_BASE_URL}/${virtualbox_pkg} > /tmp/${virtualbox_pkg}
       sudo dpkg -i /tmp/${virtualbox_pkg}
     fi
 
   elif [ $distro == 'Fedora']; then
     echo "Not yet supported"
   fi
+elif [[ "$unamestr" == "Darwin" ]]; then
+  virtualbox_pkg="VirtualBox-${VIRTUALBOX_FULL_VER}-OSX.dmg"
+  curl -L ${VIRTUALBOX_BASE_URL}/${virtualbox_pkg} > /tmp/${virtualbox_pkg}
+  hdiutil attach virtualbox_pkg
 fi
