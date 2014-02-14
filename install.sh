@@ -81,7 +81,7 @@ fi
 
 echo "Installing vagrant plugins"
 vagrant plugin install vagrant-berkshelf
-vagtrant plugin install vagrant-omnibus
+vagrant plugin install vagrant-omnibus
 
 echo "Installing Gems"
 bundle install
