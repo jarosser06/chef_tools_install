@@ -64,8 +64,9 @@ elif [[ "$unamestr" == "Darwin" ]]; then
   hdiutil detach /Volumes/Vagrant
 fi
 
-echo "Installing base plugins"
-vagrant plugin install vagrant-berkshelf vagrant-omnibus
+echo "Installing vagrant plugins"
+vagrant plugin install vagrant-berkshelf
+vagtrant plugin install vagrant-omnibus
 
 echo "Installing Gems"
 bundle install
