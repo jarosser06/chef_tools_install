@@ -1,5 +1,5 @@
-tamu_contrib_setup
-==================
+Chef Support Tools Installer
+============================
 
 Supports
 --------
