@@ -2,10 +2,8 @@
 bundle install
 
 VIRTUALBOX_VER="4.3.6"
-VIRTUALBOX_FULL_VER="4.3_4.3.6-91406"
+VIRTUALBOX_FULL_VER="4.3.6-91406"
 VIRTUALBOX_BASE_URL="http://download.virtualbox.org/virtualbox/4.3.6"
-
-VirtualBox-4.3.6-91406-OSX.dmg
 
 platform='unkown'
 unamestr=`uname`
@@ -14,7 +12,7 @@ vbox_version=`VBoxHeadless --version`
 install_vbox=true
 
 
-if [ "$vbox_version" != '']; then
+if ! [ "$vbox_version" == "4.3.6" ]; then
   install_vbox=false
 fi
 
@@ -41,7 +39,7 @@ if [[ "$unamestr" == "Linux" ]]; then
     esac
 
     if [ install_vbox ];then
-      virtualbox_pkg="virtualbox-${VIRTUALBOX_FULL_VER}~Ubuntu~${version_name}_amd64.deb"
+      virtualbox_pkg="virtualbox-4.3_${VIRTUALBOX_FULL_VER}~Ubuntu~${version_name}_amd64.deb"
       curl -L ${VIRTUALBOX_BASE_URL}/${virtualbox_pkg} > /tmp/${virtualbox_pkg}
       sudo dpkg -i /tmp/${virtualbox_pkg}
     fi
