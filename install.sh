@@ -1,5 +1,4 @@
 #!/bin/bash
-bundle install
 
 VIRTUALBOX_VER="4.3.6"
 VIRTUALBOX_FULL_VER="4.3.6-91406"
@@ -64,3 +63,9 @@ elif [[ "$unamestr" == "Darwin" ]]; then
   sudo installer -pkg /Volumes/Vagrant/Vagrant.pkg -target /
   hdiutil detach /Volumes/Vagrant
 fi
+
+echo "Installing base plugins"
+vagrant plugin install vagrant-berkshelf vagrant-omnibus
+
+echo "Installing Gems"
+bundle install
