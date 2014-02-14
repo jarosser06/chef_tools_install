@@ -9,11 +9,11 @@ platform='unkown'
 unamestr=`uname`
 
 vbox_version=`VBoxHeadless --version`
-install_vbox=true
+install_vbox=false
 
 
-if ! [ "$vbox_version" == "4.3.6" ]; then
-  install_vbox=false
+if [ "$vbox_version" == "" ]; then
+  install_vbox=true
 fi
 
 if [[ "$unamestr" == "Linux" ]]; then
@@ -50,5 +50,5 @@ if [[ "$unamestr" == "Linux" ]]; then
 elif [[ "$unamestr" == "Darwin" ]]; then
   virtualbox_pkg="VirtualBox-${VIRTUALBOX_FULL_VER}-OSX.dmg"
   curl -L ${VIRTUALBOX_BASE_URL}/${virtualbox_pkg} > /tmp/${virtualbox_pkg}
-  hdiutil attach /tmp/virtualbox_pkg
+  hdiutil attach /tmp/${virtualbox_pkg}
 fi
