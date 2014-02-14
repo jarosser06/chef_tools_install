@@ -44,6 +44,21 @@ if [[ "$unamestr" == "Linux" ]]; then
       sudo dpkg -i /tmp/${vagrant_pkg}
     fi
 
+  elif [ "$unamestr" == "Fedora"]; then
+    echo "Installing Virtualbox..."
+    if [ $version > 18 ]; then
+      virtualbox_pkg="VirtualBox-4.3-${VIRTUALBOX_FULL_VER}_fedora18-1.x86_64.rpm"
+    else
+      virtualbox_pkg="VirtualBox-4.3-${VIRTUALBOX_FULL_VER}_fedora17-1.x86_64.rpm"
+    fi
+    curl -L ${VIRTUALBOX_BASE_URL}/${virtualbox_pkg} > /tmp/${virtualbox_pkg}
+    sudo yum install /tmp/${virtualbox_pkg}
+
+    echo "Installing Vagrant..."
+    vagrant_pkg="vagrant_${VAGRANT_VER}_x86_64.rpm"
+    curl -L ${VAGRANT_BASE_URL}/${vagrant_pkg} > /tmp/${vagrant_pkg}
+    sudo yum install /tmp/${vagrant_pkg}
+
   else
     echo "Not yet supported"
   fi
