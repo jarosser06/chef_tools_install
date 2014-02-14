@@ -1,3 +1,4 @@
+#!/bin/bash
 bundle install
 
 VIRTUALBOX_VER="4.3.6"
