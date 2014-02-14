@@ -46,11 +46,11 @@ if [[ "$unamestr" == "Linux" ]]; then
       sudo dpkg -i /tmp/${virtualbox_pkg}
     fi
 
-  elif [ $distro == 'Fedora']; then
+  else
     echo "Not yet supported"
   fi
 elif [[ "$unamestr" == "Darwin" ]]; then
   virtualbox_pkg="VirtualBox-${VIRTUALBOX_FULL_VER}-OSX.dmg"
   curl -L ${VIRTUALBOX_BASE_URL}/${virtualbox_pkg} > /tmp/${virtualbox_pkg}
-  hdiutil attach virtualbox_pkg
+  hdiutil attach /tmp/virtualbox_pkg
 fi
