@@ -17,7 +17,7 @@ if [[ "$unamestr" == "Linux" ]]; then
   distro=${NAME}
   version=${VERSION_ID}
 
-  if [ $distro == 'Ubuntu']; then
+  if [ "$distro" == "Ubuntu" ]; then
     case $version in
       "12.04")
         version_name='precise'
@@ -44,7 +44,7 @@ if [[ "$unamestr" == "Linux" ]]; then
       sudo dpkg -i /tmp/${vagrant_pkg}
     fi
 
-  elif [ "$unamestr" == "Fedora"]; then
+  elif [ "$distro" == "Fedora" ]; then
     echo "Installing Virtualbox..."
     if [ $version > 18 ]; then
       virtualbox_pkg="VirtualBox-4.3-${VIRTUALBOX_FULL_VER}_fedora18-1.x86_64.rpm"
