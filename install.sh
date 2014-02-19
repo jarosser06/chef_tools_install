@@ -46,10 +46,10 @@ if [[ "$unamestr" == "Linux" ]]; then
 
   elif [ "$distro" == "Fedora" ]; then
     echo "Installing Virtualbox..."
-    if [ $version > 18 ]; then
-      virtualbox_pkg="VirtualBox-4.3-${VIRTUALBOX_FULL_VER}_fedora18-1.x86_64.rpm"
+    if [ "$version" == "17" ]; then
+      virtualbox_pkg="VirtualBox-4.3-4.3.6_91406_fedora17-1.x86_64.rpm"
     else
-      virtualbox_pkg="VirtualBox-4.3-${VIRTUALBOX_FULL_VER}_fedora17-1.x86_64.rpm"
+      virtualbox_pkg="VirtualBox-4.3-4.3.6_91406_fedora18-1.x86_64.rpm"
     fi
     curl -L ${VIRTUALBOX_BASE_URL}/${virtualbox_pkg} > /tmp/${virtualbox_pkg}
     sudo yum install /tmp/${virtualbox_pkg}
