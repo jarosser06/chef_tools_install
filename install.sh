@@ -1,11 +1,11 @@
 #!/bin/bash
 
-VIRTUALBOX_VER="4.3.6"
+VIRTUALBOX_VER="4.3.8"
 VIRTUALBOX_FULL_VER="4.3.6-91406"
 VIRTUALBOX_BASE_URL="http://download.virtualbox.org/virtualbox/4.3.6"
 
 VAGRANT_BASE_URL="https://dl.bintray.com/mitchellh/vagrant"
-VAGRANT_VER="1.4.3"
+VAGRANT_VER="1.5.1"
 
 platform='unkown'
 unamestr=`uname`
