@@ -72,7 +72,7 @@ elif [[ "$unamestr" == "Darwin" ]]; then
   hdiutil detach /Volumes/VirtualBox
 
   echo "Installing Vagrant"
-  vagrant_pkg="Vagrant-${VAGRANT_VER}.dmg"
+  vagrant_pkg="vagrant_${VAGRANT_VER}.dmg"
   curl -L ${VAGRANT_BASE_URL}/${vagrant_pkg} > /tmp/${vagrant_pkg}
   hdiutil attach /tmp/${vagrant_pkg}
   sudo installer -pkg /Volumes/Vagrant/Vagrant.pkg -target /
