@@ -5,7 +5,7 @@ VIRTUALBOX_FULL_VER="4.3.6-91406"
 VIRTUALBOX_BASE_URL="http://download.virtualbox.org/virtualbox/4.3.6"
 
 VAGRANT_BASE_URL="https://dl.bintray.com/mitchellh/vagrant"
-VAGRANT_VER="1.5.4"
+VAGRANT_VER="1.5.2"
 
 platform='unkown'
 unamestr=`uname`
