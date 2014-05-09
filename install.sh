@@ -150,7 +150,7 @@ elif [[ "$unamestr" == "Darwin" ]]; then
   if [ "$install_chefdk" == true ]; then
     echo "Installing ChefDK..."
     chefdk_pkg="chefdk-${CHEDK_VER}-1.dmg"
-    curl -L ${CHEFDK_BASE_URL}/mac_os_x/10.9/x86_64/${chefdk_pkg}
+    curl -L ${CHEFDK_BASE_URL}/mac_os_x/10.9/x86_64/${chefdk_pkg} > /tmp/${chefdk_pkg}
     hdiutil attach /tmp/${chefdk_pkg}
     sudo installer -pkg /Volumes/chefdk/chefdk.pkg -target /
     hdiutil detach /Volumes/chefdk
