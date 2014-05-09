@@ -7,18 +7,22 @@ VIRTUALBOX_BASE_URL="http://download.virtualbox.org/virtualbox/4.3.6"
 VAGRANT_BASE_URL="https://dl.bintray.com/mitchellh/vagrant"
 VAGRANT_VER="1.5.2"
 
+CHEFDK_BASE_URL="https://opscode-omnibus-packages.s3.amazonaws.com"
+CHEFDK_VER="0.1.0"
+
 platform='unkown'
 unamestr=`uname`
 
 install_vbox=true
 install_vagrant=true
+install_chefdk=true
 
 # Get sudo password at the beginning
 echo "Sudo is required to run this script"
 sudo ls &> /dev/null
 
 if [ -a "/usr/bin/vagrant" ]; then
-  echo "Vagrant already exists ... skipping"
+  echo -e "Vagrant already exists... \t\t\t\tskipping"
   install_vagrant=false
 fi
 
@@ -26,8 +30,16 @@ if [ -a "/usr/bin/virtualbox" ]; then
   vbox_installed_version=`vboxmanage --version | sed s/r/-/`
 
   if [ "$vbox_installed_version" == $VIRTUALBOX_FULL_VER ]; then
-    echo "Virtualbox already exists and is correct version ... skipping"
+    echo -e "Virtualbox already exists and is correct version... \tskipping"
     install_vbox=false
+  fi
+fi
+
+if [ -a "/opt/chefdk/bin/chef" ]; then
+  chefdk_installed_version=`chef --version | awk '{print $5}'`
+  if [ "$chefdk_installed_version" == $CHEFDK_VER ]; then
+    echo -e "ChefDK already installed and is correct version... \tskipping"
+    install_chefdk=false
   fi
 fi
 
@@ -39,14 +51,23 @@ if [[ "$unamestr" == "Linux" ]]; then
   version=${VERSION_ID}
 
   if [ "$distro" == "Ubuntu" ]; then
+    chef_dk_avail=false
     case $version in
       "12.04")
         version_name='precise'
+        chef_dk_avail=true
         ;;
       "12.10")
         version_name='quantal'
         ;;
       "13.04")
+        version_name='raring'
+        ;;
+      "13.10")
+        version_name='raring'
+        chef_dk_avail=true
+        ;;
+      "14.04")
         version_name='raring'
         ;;
       *)
@@ -65,6 +86,17 @@ if [[ "$unamestr" == "Linux" ]]; then
       vagrant_pkg="vagrant_${VAGRANT_VER}_x86_64.deb"
       curl -L ${VAGRANT_BASE_URL}/${vagrant_pkg} > /tmp/${vagrant_pkg}
       sudo dpkg -i /tmp/${vagrant_pkg}
+    fi
+
+    if [ "$install_chefdk" == true ]; then
+      if [ "$chef_dk_avail" == true ]; then
+        echo "Installing ChefDK..."
+        chefdk_pkg="chefdk_${CHEFDK_VER}-1_amd64.deb"
+        curl -L ${CHEFDK_BASE_URL}/ubuntu/${version}/x86_64/${chefdk_pkg} > /tmp/${chefdk_pkg}
+        sudo dpkg -i /tmp/${chefdk_pkg}
+      else
+        echo "Oops no ChefDK package currently avilable for this version"
+      fi
     fi
 
   elif [ "$distro" == "Fedora" ]; then
@@ -86,6 +118,12 @@ if [[ "$unamestr" == "Linux" ]]; then
       sudo yum install /tmp/${vagrant_pkg}
     fi
 
+    if [ "$install_chefdk" == true ]; then
+      echo "Installing ChefDK..."
+      chefdk_pkg="chefdk-${CHEFDK_VER}-1.el6.x86_64.rpm"
+      curl -L ${CHEFDK_BASE_URL}/el/6/x86_64/${chefdk_pkg} > /tmp/${chefdk_pkg}
+      sudo yum install /tmp/${chefdk_pkg}
+    fi
   else
     echo "Not yet supported"
   fi
@@ -108,8 +146,21 @@ elif [[ "$unamestr" == "Darwin" ]]; then
     sudo installer -pkg /Volumes/Vagrant/Vagrant.pkg -target /
     hdiutil detach /Volumes/Vagrant
   fi
+
+  if [ "$install_chefdk" == true ]; then
+    echo "Installing ChefDK..."
+    chefdk_pkg="chefdk-${CHEDK_VER}-1.dmg"
+    curl -L ${CHEFDK_BASE_URL}/mac_os_x/10.9/x86_64/${chefdk_pkg}
+    hdiutil attach /tmp/${chefdk_pkg}
+    sudo installer -pkg /Volumes/chefdk/chefdk.pkg -target /
+    hdiutil detach /Volumes/chefdk
+  fi
 fi
 
-echo "Installing vagrant plugins"
-vagrant plugin install vagrant-berkshelf --plugin-version 2.0.1
-vagrant plugin install vagrant-omnibus
+if [ "$install_vbox" == true ]; then
+  echo "Installing vagrant plugins"
+  vagrant plugin install vagrant-berkshelf --plugin-version 2.0.1
+  vagrant plugin install vagrant-omnibus
+fi
+
+echo "Enjoy!!"
