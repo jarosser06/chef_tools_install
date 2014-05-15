@@ -108,21 +108,21 @@ if [[ "$unamestr" == "Linux" ]]; then
         virtualbox_pkg="VirtualBox-4.3-4.3.6_91406_fedora18-1.x86_64.rpm"
       fi
       curl -L ${VIRTUALBOX_BASE_URL}/${virtualbox_pkg} > /tmp/${virtualbox_pkg}
-      sudo yum install /tmp/${virtualbox_pkg}
+      sudo yum install /tmp/${virtualbox_pkg} -y
     fi
 
     if [ "$install_vagrant" == true ]; then
       echo "Installing Vagrant..."
       vagrant_pkg="vagrant_${VAGRANT_VER}_x86_64.rpm"
       curl -L ${VAGRANT_BASE_URL}/${vagrant_pkg} > /tmp/${vagrant_pkg}
-      sudo yum install /tmp/${vagrant_pkg}
+      sudo yum install /tmp/${vagrant_pkg} -y
     fi
 
     if [ "$install_chefdk" == true ]; then
       echo "Installing ChefDK..."
       chefdk_pkg="chefdk-${CHEFDK_VER}-1.el6.x86_64.rpm"
       curl -L ${CHEFDK_BASE_URL}/el/6/x86_64/${chefdk_pkg} > /tmp/${chefdk_pkg}
-      sudo yum install /tmp/${chefdk_pkg}
+      sudo yum install /tmp/${chefdk_pkg} -y
     fi
   else
     echo "Not yet supported"
