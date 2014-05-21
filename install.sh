@@ -159,8 +159,8 @@ fi
 
 if [ "$install_vagrant" == true ]; then
   echo "Installing vagrant plugins"
-  vagrant plugin install vagrant-berkshelf --plugin-version 2.0.1
   vagrant plugin install vagrant-omnibus
+  vagrant plugin install vagrant-berkshelf --plugin-version 2.0.1
 fi
 
 echo "Enjoy!!"
