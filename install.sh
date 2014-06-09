@@ -5,7 +5,7 @@ VIRTUALBOX_FULL_VER="4.3.6-91406"
 VIRTUALBOX_BASE_URL="http://download.virtualbox.org/virtualbox/4.3.6"
 
 VAGRANT_BASE_URL="https://dl.bintray.com/mitchellh/vagrant"
-VAGRANT_VER="1.5.2"
+VAGRANT_VER="1.6.3"
 
 CHEFDK_BASE_URL="https://opscode-omnibus-packages.s3.amazonaws.com"
 CHEFDK_VER="0.1.0"
