@@ -1,8 +1,7 @@
 #!/bin/bash
 
-VIRTUALBOX_VER="4.3.8"
-VIRTUALBOX_FULL_VER="4.3.6-91406"
-VIRTUALBOX_BASE_URL="http://download.virtualbox.org/virtualbox/4.3.6"
+VIRTUALBOX_FULL_VER="4.3.12-93733"
+VIRTUALBOX_BASE_URL="http://download.virtualbox.org/virtualbox/4.3.12"
 
 VAGRANT_BASE_URL="https://dl.bintray.com/mitchellh/vagrant"
 VAGRANT_VER="1.6.3"
@@ -17,31 +16,67 @@ install_vbox=true
 install_vagrant=true
 install_chefdk=true
 
+function usage {
+  echo -e "\nInstalls Virtualbox, Vagrant, and ChefDK\n"
+  echo "Usage: install.sh [opts]"
+  echo " -h - show this usage"
+  echo " -s - skip package (ex: -s virtualbox)"
+}
+
+while getopts s:h flag
+do
+  case $flag in
+    s)
+      case $OPTARG in
+        virtualbox)
+          install_vbox=false
+          ;;
+        vagrant)
+          install_vagrant=false
+          ;;
+        chefdk)
+          install_chefdk=false
+          ;;
+      esac
+      ;;
+    h)
+      usage
+      exit 0
+      ;;
+  esac
+done
+
+if [ "$install_vagrant" == true ]; then
+  if [ -a "/usr/bin/vagrant" ]; then
+    echo -e "Vagrant already exists... \t\t\t\tskipping"
+    install_vagrant=false
+  fi
+fi
+
+if [ "$install_vbox" == true ]; then
+  if [ -a "/usr/bin/virtualbox" ]; then
+    vbox_installed_version=`vboxmanage --version | sed s/r/-/`
+
+    if [ "$vbox_installed_version" == $VIRTUALBOX_FULL_VER ]; then
+      echo -e "Virtualbox already exists and is correct version... \tskipping"
+      install_vbox=false
+    fi
+  fi
+fi
+
+if [ "$install_chefdk" == true ]; then
+  if [ -a "/opt/chefdk/bin/chef" ]; then
+    chefdk_installed_version=`chef --version | awk '{print $5}'`
+    if [ "$chefdk_installed_version" == $CHEFDK_VER ]; then
+      echo -e "ChefDK already installed and is correct version... \tskipping"
+      install_chefdk=false
+    fi
+  fi
+fi
+
 # Get sudo password at the beginning
 echo "Sudo is required to run this script"
 sudo ls &> /dev/null
-
-if [ -a "/usr/bin/vagrant" ]; then
-  echo -e "Vagrant already exists... \t\t\t\tskipping"
-  install_vagrant=false
-fi
-
-if [ -a "/usr/bin/virtualbox" ]; then
-  vbox_installed_version=`vboxmanage --version | sed s/r/-/`
-
-  if [ "$vbox_installed_version" == $VIRTUALBOX_FULL_VER ]; then
-    echo -e "Virtualbox already exists and is correct version... \tskipping"
-    install_vbox=false
-  fi
-fi
-
-if [ -a "/opt/chefdk/bin/chef" ]; then
-  chefdk_installed_version=`chef --version | awk '{print $5}'`
-  if [ "$chefdk_installed_version" == $CHEFDK_VER ]; then
-    echo -e "ChefDK already installed and is correct version... \tskipping"
-    install_chefdk=false
-  fi
-fi
 
 if [[ "$unamestr" == "Linux" ]]; then
   platform='linux'
