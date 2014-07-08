@@ -48,8 +48,11 @@ done
 
 if [ "$install_vagrant" == true ]; then
   if [ -a "/usr/bin/vagrant" ]; then
-    echo -e "Vagrant already exists... \t\t\t\tskipping"
-    install_vagrant=false
+    vagrant_installed_version=$(vagrant version | grep Installed | grep -o "[0-9].*")
+    if [ "$VAGRANT_VER" == $vagrant_installed_version ]; then
+      echo -e "Vagrant already exists and is correct version... \tskipping"
+      install_vagrant=false
+    fi
   fi
 fi
 
@@ -195,8 +198,12 @@ fi
 
 if [ "$install_vagrant" == true ]; then
   echo "Installing vagrant plugins"
-  vagrant plugin install vagrant-omnibus
-  vagrant plugin install vagrant-berkshelf --plugin-version 2.0.1
+  if [ -z $(vagrant plugin list | grep omnibus) ]; then
+    vagrant plugin install vagrant-omnibus
+  fi
+  if [ -z $(vagrant plugin list | grep vagrant-berkshelf) ]; then
+    vagrant plugin install vagrant-berkshelf --plugin-version 2.0.1
+  fi
 fi
 
 echo "Enjoy!!"
