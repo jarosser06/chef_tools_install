@@ -1,7 +1,7 @@
 #!/bin/bash
 
-VIRTUALBOX_FULL_VER="4.3.12-93733"
-VIRTUALBOX_BASE_URL="http://download.virtualbox.org/virtualbox/4.3.12"
+VIRTUALBOX_FULL_VER="4.3.14-95030"
+VIRTUALBOX_BASE_URL="http://download.virtualbox.org/virtualbox/4.3.14"
 
 VAGRANT_BASE_URL="https://dl.bintray.com/mitchellh/vagrant"
 VAGRANT_VER="1.6.3"
