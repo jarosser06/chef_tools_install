@@ -1,13 +1,13 @@
 #!/bin/bash
 
-VIRTUALBOX_FULL_VER="4.3.16-95972"
-VIRTUALBOX_BASE_URL="http://download.virtualbox.org/virtualbox/4.3.14"
+VIRTUALBOX_FULL_VER="4.3.20-96996"
+VIRTUALBOX_BASE_URL="http://download.virtualbox.org/virtualbox/4.3.20"
 
 VAGRANT_BASE_URL="https://dl.bintray.com/mitchellh/vagrant"
 VAGRANT_VER="1.6.5"
 
 CHEFDK_BASE_URL="https://opscode-omnibus-packages.s3.amazonaws.com"
-CHEFDK_VER="0.3.0"
+CHEFDK_VER="0.3.5"
 
 platform='unkown'
 unamestr=`uname`
