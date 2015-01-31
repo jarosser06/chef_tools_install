@@ -4,10 +4,10 @@ VIRTUALBOX_FULL_VER="4.3.20-96996"
 VIRTUALBOX_BASE_URL="http://download.virtualbox.org/virtualbox/4.3.20"
 
 VAGRANT_BASE_URL="https://dl.bintray.com/mitchellh/vagrant"
-VAGRANT_VER="1.6.5"
+VAGRANT_VER="1.7.2"
 
 CHEFDK_BASE_URL="https://opscode-omnibus-packages.s3.amazonaws.com"
-CHEFDK_VER="0.3.5"
+CHEFDK_VER="0.3.6"
 
 platform='unkown'
 unamestr=`uname`
@@ -202,7 +202,7 @@ if [ "$install_vagrant" == true ]; then
     vagrant plugin install vagrant-omnibus
   fi
   if [ -z $(vagrant plugin list | grep vagrant-berkshelf) ]; then
-    vagrant plugin install vagrant-berkshelf --plugin-version 2.0.1
+    vagrant plugin install vagrant-berkshelf
   fi
 fi
 
