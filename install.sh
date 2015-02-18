@@ -7,7 +7,7 @@ VAGRANT_BASE_URL="https://dl.bintray.com/mitchellh/vagrant"
 VAGRANT_VER="1.7.2"
 
 CHEFDK_BASE_URL="https://opscode-omnibus-packages.s3.amazonaws.com"
-CHEFDK_VER="0.3.6"
+CHEFDK_VER="0.4.0"
 
 platform='unkown'
 unamestr=`uname`
